@@ -11,9 +11,10 @@ def open_and_read_file(file_path):
     """
 
     # your code goes here
+    input_text = open(file_path).read()
 
-    return 'Contents of your file as one long string'
-
+    return input_text #'Contents of your file as one long string'
+    #print(input_text)
 
 def make_chains(text_string):
     """Take input text as string; return dictionary of Markov chains.
@@ -41,8 +42,18 @@ def make_chains(text_string):
     """
 
     chains = {}
+    
+    words = text_string.split()
+    words.append(None)
+    list_len = len(words)
+    
 
-    # your code goes here
+    for index in range(list_len-2):
+        
+        key_tuple = (words[index], words[index + 1])
+        #print(key_tuple)
+        chains[key_tuple] = chains.get(key_tuple, [])
+        chains[key_tuple].append(words[index + 2])
 
     return chains
 
@@ -50,9 +61,15 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
-    words = []
+    key = choice(list(chains.keys()))
+    words = [key[0], key[1]]
+    word = choice(chains[key])
 
-    # your code goes here
+    while word is not None:
+        key = (key[1], word)
+        words.append(word)
+        word = choice(chains[key])
+        
 
     return ' '.join(words)
 
