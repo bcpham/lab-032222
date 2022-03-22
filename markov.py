@@ -1,20 +1,25 @@
 """Generate Markov text from text files."""
 
+# import sys
 from random import choice
 
 
-def open_and_read_file(file_path):
+def open_and_read_file(file_path1, file_path2):
     """Take file path as string; return text as string.
 
     Takes a string that is a file path, opens the file, and turns
     the file's contents as one string of text.
     """
-
     # your code goes here
-    input_text = open(file_path).read()
 
-    return input_text #'Contents of your file as one long string'
+    input_text1 = open(file_path1).read()
+    input_text2 = open(file_path2).read()
+
+    input_text = input_text1 + input_text2
+
     #print(input_text)
+    return input_text #'Contents of your file as one long string'
+    
 
 def make_chains(text_string):
     """Take input text as string; return dictionary of Markov chains.
@@ -74,10 +79,13 @@ def make_text(chains):
     return ' '.join(words)
 
 
-input_path = 'green-eggs.txt'
+file_path1 = 'green-eggs.txt'
+file_path2 = 'gettysburg.txt'
+
+input_text = open_and_read_file(file_path1, file_path2)
 
 # Open the file and turn it into one long string
-input_text = open_and_read_file(input_path)
+#input_text = open_and_read_file(file_path)
 
 # Get a Markov chain
 chains = make_chains(input_text)
